@@ -1,7 +1,5 @@
 const request = require('request');
 
-const urlIP = 'https://api.ipify.org/?format=json';
-
 /**
 * Makes a single API request to retrieve the user's IP address.
 * Input:
@@ -14,7 +12,7 @@ const urlIP = 'https://api.ipify.org/?format=json';
 
 const fetchMyIP = (callback) => {
 
-  request(urlIP, 'utf8', (error, response, body) => {
+  request('https://api.ipify.org/?format=json', 'utf8', (error, response, body) => {
     const ipAddress = JSON.parse(body);
     // console.log(ipAddress.ip) // shows IP address
     if (error) {
@@ -41,10 +39,7 @@ const fetchCoordsByIP = ((ip, callback) => {
       const msg = `Status Code: ${response.statusCode} when fetching coordinates. Response ${body}`;
       callback(Error(msg), null);
       return;
-    }
-
-    console.log(response.statusCode);
-    
+    }    
     const myCoordinates = {};
     myCoordinates.latitude = JSON.parse(body).latitude;
     myCoordinates.longitude = JSON.parse(body).longitude;
